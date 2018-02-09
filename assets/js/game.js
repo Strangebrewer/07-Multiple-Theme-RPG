@@ -508,7 +508,8 @@ $(window).ready(function () {
           $("#choose-avatar-heading").css("opacity", "1");
           $("#choose-avatar-heading").css("animation", "opac .8s");
           $("#choose-avatar-heading").css("animation-iteration-count", "infinite");
-        }, 3500);
+          defenderFlag = true;
+        }, 3000);
         setTimeout(function () {
           $("#choose-avatar-heading").css("animation", "fadeout2 .8s");
           $("#choose-avatar-heading").css("opacity", "0");
@@ -517,7 +518,6 @@ $(window).ready(function () {
           $("#" + playerTwo.divId + " img").css("box-shadow", "0 0 30px #029aff");
           fadeInDead("#" + playerTwo.divId);
           fadeIn("#graveyard-label");
-          defenderFlag = true;
         }, 2000);
       }
     }
