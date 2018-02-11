@@ -6,6 +6,7 @@ $(window).ready(function () {
   var playerThreeFlag = true;
   var playerFourFlag = true;
   var defenderFlag = true;
+  var defenderMissing = true;
   var countFlag = 0;
   var firstAvatar;
   var secondAvatar;
@@ -272,7 +273,7 @@ $(window).ready(function () {
     setTimeout(function () {
       $(p1).css("grid-row", "2");
       $(p1).css("grid-column", "4 / 6");
-      if (countFlag === 2) {
+      if (countFlag === 1) {
         $("#attack-button").css("display", "block");
       }
       fadeIn(p1);
@@ -362,14 +363,15 @@ $(window).ready(function () {
       playerTwo = firstAvatar;
       currentTwoHealth = playerTwo.healthPoints;
       playerOneFlag = false;
+      defenderMissing = false;
     } else if (playerOneFlag && defenderFlag) {
       choosePlayerOne("#avatar-one", "#avatar-two", "#avatar-three", "#avatar-four");
       playerOne = firstAvatar;
       currentOneHealth = playerOne.healthPoints;
       playerOneFlag = false;
       document.getElementById(songArray[0]).play();
+      countFlag++;
     }
-    countFlag++;
   });
 
   $("#player-two").on("click", function () {
@@ -378,14 +380,15 @@ $(window).ready(function () {
       playerTwo = secondAvatar;
       currentTwoHealth = playerTwo.healthPoints;
       playerTwoFlag = false;
+      defenderMissing = false;
     } else if (playerTwoFlag && defenderFlag) {
       choosePlayerOne("#avatar-two", "#avatar-one", "#avatar-three", "#avatar-four");
       playerOne = secondAvatar;
       currentOneHealth = playerOne.healthPoints;
       playerTwoFlag = false;
       document.getElementById(songArray[1]).play();
+      countFlag++;
     }
-    countFlag++;
   });
 
   $("#player-three").on("click", function () {
@@ -394,14 +397,15 @@ $(window).ready(function () {
       playerTwo = thirdAvatar;
       currentTwoHealth = playerTwo.healthPoints;
       playerThreeFlag = false;
+      defenderMissing = false;
     } else if (playerThreeFlag && defenderFlag) {
       choosePlayerOne("#avatar-three", "#avatar-one", "#avatar-two", "#avatar-four");
       playerOne = thirdAvatar;
       currentOneHealth = playerOne.healthPoints;
       playerThreeFlag = false;
       document.getElementById(songArray[2]).play();
+      countFlag++;
     }
-    countFlag++;
   });
 
   $("#player-four").on("click", function () {
@@ -410,14 +414,15 @@ $(window).ready(function () {
       playerTwo = fourthAvatar;
       currentTwoHealth = playerTwo.healthPoints;
       playerFourFlag = false;
+      defenderMissing = false;
     } else if (playerFourFlag && defenderFlag) {
       choosePlayerOne("#avatar-four", "#avatar-one", "#avatar-two", "#avatar-three");
       playerOne = fourthAvatar;
       currentOneHealth = playerOne.healthPoints;
       playerFourFlag = false;
       document.getElementById(songArray[3]).play();
+      countFlag++;
     }
-    countFlag++;
   });
   // end CHOOSE AVATAR Buttons
 
@@ -467,8 +472,14 @@ $(window).ready(function () {
 
   function checkTwoHealth() {
     if (currentTwoHealth <= 0) {
+      defenderMissing = true;
       $("#" + playerTwo.healthId).text("Health: 0");
       $("#" + playerOne.healthId).text("Health: " + currentOneHealth);
+      $("#howard-cosell").text("You attacked " +
+        playerTwo.name +
+        " for " + currentOneAttackPower +
+        " damage."
+      );
       if (undefeatedEnemies === 2) {
         fadeIn("#graveyard-label");
       }
@@ -498,7 +509,6 @@ $(window).ready(function () {
         }, 2000);
       }
       else {
-        $("#attack-button").attr("disabled", true);
         $("#" + playerTwo.divId).css("animation", "fadeout 2s");
         $("#" + playerTwo.divId).css("opacity", "0");
         setTimeout(function () {
@@ -533,15 +543,20 @@ $(window).ready(function () {
 
   // ATTACK BUTTON
   $("#attack-button").on("click", function () {
-    if (attacks > 0) {
-      currentOneAttackPower += playerOne.attackPower;
+    if (defenderMissing === true) {
+      $("#howard-cosell").text("There is no enemy to attack.");
+      $("#attack-button").attr("disabled", true);
     } else {
-      currentOneAttackPower = playerOne.attackPower;
+      if (attacks > 0) {
+        currentOneAttackPower += playerOne.attackPower;
+      } else {
+        currentOneAttackPower = playerOne.attackPower;
+      }
+      currentTwoHealth -= currentOneAttackPower;
+      checkTwoHealth();
+      checkOneHealth();
+      attacks++;
     }
-    currentTwoHealth -= currentOneAttackPower;
-    checkTwoHealth();
-    checkOneHealth();
-    attacks++;
   });
   // end ATTACK BUTTON
 
