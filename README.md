@@ -8,7 +8,7 @@ When you click a theme button, the game loads with the corresponding images. The
 
 This was a fun project. I learned more about jQuery DOM manipulation, and a lot of the concepts were further cemented by the large amount of repetition required to write this. I gained some experience using flag variables to set conditions for different functionality, and I started to dip my toe into using objects rather than simple variables. I also gained more experience in seeing how the order of things in the script affects the overall logic and can often be the reason something works or doesn't work, and it can be the difference between working as intended and having unintended consequences.
 
-I tried to use 'this' to distill multiple on-clicks into one, but found that 'this' didn't seem to work with accessing objects within objects. I tried it by giving each button a value equal to the name of the object, and then setting this.value as the beginning of a chain to access object properties. It didn't work. It always returned a string that looked like the object name, but js wouldn't treat it like an object name. In other words:
+I tried to use 'this' to distill multiple on-clicks into one, but found that 'this' didn't seem to work with accessing objects within objects. I tried it by giving each html button element a value equal to the name of the object (e.g. "value='starWars'"), and then setting "this.value" as the beginning of a chain to access object properties. It didn't work. It always returned a string that looked like the object name, but js wouldn't treat it like an object name. In other words:
 <ul>
   <li>if:</li>
     <ul>
