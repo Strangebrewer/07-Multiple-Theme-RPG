@@ -1,6 +1,6 @@
 # Multiple-Theme-RPG
 
-This is the second jQuery project for my coding bootcamp. The project was actually to create one RPG with a prescribed mechanic, but I noticed along the way that if I were to use generic class, id, and variable names, I could add as many more themes (or skins) as I wanted. So, after getting the original game working, I started adding themes.
+This is the second jQuery project for my coding bootcamp. The project was actually to create one RPG with a prescribed mechanic, but I noticed along the way that if I were to use generic class, id, and variable names, I could easily add as many more themes (or skins) as I wanted. So, after getting the original game working, I started adding themes.
 
 The majority of the js code comes from either defining objects for the various themes, or in manipulating the DOM to achieve the look I wanted. The code for the actual game mechanic is minimal by comparison.
 
